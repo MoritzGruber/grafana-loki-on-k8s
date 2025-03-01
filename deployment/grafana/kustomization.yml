@@ -5,6 +5,7 @@ resources:
 - cm.yml
 - deployment.yml
 - service.yml
+- pvc.yml
 
 labels:
 - includeSelectors: true

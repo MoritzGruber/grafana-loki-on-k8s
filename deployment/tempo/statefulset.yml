@@ -18,14 +18,6 @@ spec:
       labels:
         app.kubernetes.io/name: tempo
     spec:
-      volumeClaimTemplates:
-      - metadata:
-          name: tempo-storage
-        spec:
-          accessModes: ["ReadWriteOnce"]
-          resources:
-            requests:
-              storage: 20Gi
       serviceAccountName: tempo
       automountServiceAccountToken: false
       containers:

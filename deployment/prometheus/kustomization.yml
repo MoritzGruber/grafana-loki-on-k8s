@@ -8,6 +8,7 @@ resources:
 - rbac.yml
 - service.yml
 - secret.yml
+- pvc.yml
 
 labels:
 - includeSelectors: true

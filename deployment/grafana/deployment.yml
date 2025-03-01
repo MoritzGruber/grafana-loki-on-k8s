@@ -20,14 +20,6 @@ spec:
         prometheus.io/port: "3000"
         filter.by.port.name: "true"
     spec:
-      volumeClaimTemplates:
-      - metadata:
-          name: grafana-storage
-        spec:
-          accessModes: ["ReadWriteOnce"]
-          resources:
-            requests:
-              storage: 3Gi
       automountServiceAccountToken: false
       securityContext:
         runAsNonRoot: true

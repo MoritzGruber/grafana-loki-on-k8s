@@ -6,6 +6,7 @@ resources:
 - cm.yml
 - service.yml
 - statefulset.yml
+- pvc.yml
 
 labels:
 - includeSelectors: true

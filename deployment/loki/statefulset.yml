@@ -28,14 +28,6 @@ spec:
         runAsNonRoot: true
         runAsGroup: 10001
         runAsUser: 10001
-      volumeClaimTemplates:
-      - metadata:
-          name: storage
-        spec:
-          accessModes: ["ReadWriteOnce"]
-          resources:
-            requests:
-              storage: 30Gi        
       containers:
         - name: loki
           image: docker.io/grafana/loki:3.4.2

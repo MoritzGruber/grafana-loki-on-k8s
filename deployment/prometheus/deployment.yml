@@ -17,14 +17,6 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/port: http
     spec:
-      volumeClaimTemplates:
-      - metadata:
-          name: prometheus-storage
-        spec:
-          accessModes: ["ReadWriteOnce"]
-          resources:
-            requests:
-              storage: 30Gi
       serviceAccountName: prometheus
       automountServiceAccountToken: true
       securityContext:
