@@ -47,9 +47,7 @@ data:
               endpoint: 0.0.0.0:4317
             http:
               endpoint: 0.0.0.0:4318
-        zipkin: {}
         opencensus: {}
-        kafka: {}
     ingester: {}
     server:
       http_listen_port: 3100
@@ -72,9 +70,4 @@ data:
       frontend_worker:
         frontend_address: 0.0.0.0:9095
     query_frontend: {}
-    overrides:
-      metrics_generator_processors: [service-graphs] # Remove span-metrics
-      metrics_generator_generate_native_histograms: both
-      user_configurable_overrides:
-        api:
-          check_for_conflicting_runtime_overrides: true
+

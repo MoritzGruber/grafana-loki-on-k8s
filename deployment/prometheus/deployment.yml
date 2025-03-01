@@ -55,10 +55,10 @@ spec:
               port: http
           resources:
             limits:
-              cpu: 100m
-              memory: 1Gi
+              cpu: 1
+              memory: 2Gi
             requests:
-              cpu: 50m
+              cpu: 300m
               memory: 512Mi
           volumeMounts:
             - name: config-volume
