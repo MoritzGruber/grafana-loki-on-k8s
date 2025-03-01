@@ -20,66 +20,87 @@ spec:
     spec:
       serviceAccountName: tempo
       automountServiceAccountToken: false
+      initContainers:
+        - name: init-tempo-dirs
+          image: busybox:1.35
+          command:
+            [
+              "/bin/sh",
+              "-c",
+              "mkdir -p /var/tempo/traces /var/tempo/wal/blocks /var/tempo/generator/wal && chmod -R 777 /var/tempo",
+            ]
+          volumeMounts:
+            - name: tempo-storage
+              mountPath: /var/tempo/wal
+              subPath: wal
+            - name: tempo-storage
+              mountPath: /var/tempo/traces
+              subPath: traces
+            - name: tempo-storage
+              mountPath: /var/tempo/generator/wal
+              subPath: generator
+          securityContext:
+            runAsUser: 0 # Run as root for permission changes
       containers:
-      - args:
-        - -config.file=/conf/tempo.yaml
-        - -mem-ballast-size-mbs=1024
-        image: docker.io/grafana/tempo:2.7.0
-        imagePullPolicy: IfNotPresent
-        name: tempo
-        ports:
-        - containerPort: 3100
-          name: prom-metrics
-        - containerPort: 6831
-          name: jaeger-thrift-c
-          protocol: UDP
-        - containerPort: 6832
-          name: jaeger-thrift-b
-          protocol: UDP
-        - containerPort: 14268
-          name: jaeger-thrift-h
-        - containerPort: 14250
-          name: jaeger-grpc
-        - containerPort: 9411
-          name: zipkin
-        - containerPort: 55680
-          name: otlp-legacy
-        - containerPort: 4317
-          name: otlp-grpc
-        - containerPort: 55681
-          name: otlp-httplegacy
-        - containerPort: 4318
-          name: otlp-http
-        - containerPort: 55678
-          name: opencensus
-        resources:
-          limits:
-            cpu: 100m
-            memory: "1Gi"
-          requests:
-            cpu: 50m
-            memory: "512Mi"
-        volumeMounts:
-        - mountPath: /conf
-          name: tempo-conf
-        - name: tempo-storage
-          mountPath: /var/tempo/wal
-          subPath: wal
-        - name: tempo-storage
-          mountPath: /var/tempo/traces
-          subPath: traces
-        - name: tempo-storage
-          mountPath: /var/tempo/generator/wal
-          subPath: generator
-        securityContext:
-          allowPrivilegeEscalation: false
-          privileged: false
-          readOnlyRootFilesystem: true
-          seccompProfile:
-            type: RuntimeDefault
-          capabilities:
-            drop:
-              - ALL
+        - args:
+            - -config.file=/conf/tempo.yaml
+            - -mem-ballast-size-mbs=1024
+          image: docker.io/grafana/tempo:2.7.0
+          imagePullPolicy: IfNotPresent
+          name: tempo
+          ports:
+            - containerPort: 3100
+              name: prom-metrics
+            - containerPort: 6831
+              name: jaeger-thrift-c
+              protocol: UDP
+            - containerPort: 6832
+              name: jaeger-thrift-b
+              protocol: UDP
+            - containerPort: 14268
+              name: jaeger-thrift-h
+            - containerPort: 14250
+              name: jaeger-grpc
+            - containerPort: 9411
+              name: zipkin
+            - containerPort: 55680
+              name: otlp-legacy
+            - containerPort: 4317
+              name: otlp-grpc
+            - containerPort: 55681
+              name: otlp-httplegacy
+            - containerPort: 4318
+              name: otlp-http
+            - containerPort: 55678
+              name: opencensus
+          resources:
+            limits:
+              cpu: 100m
+              memory: "1Gi"
+            requests:
+              cpu: 50m
+              memory: "512Mi"
+          volumeMounts:
+            - mountPath: /conf
+              name: tempo-conf
+            - name: tempo-storage
+              mountPath: /var/tempo/wal
+              subPath: wal
+            - name: tempo-storage
+              mountPath: /var/tempo/traces
+              subPath: traces
+            - name: tempo-storage
+              mountPath: /var/tempo/generator/wal
+              subPath: generator
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
       volumes:
         - name: tempo-storage
           persistentVolumeClaim:

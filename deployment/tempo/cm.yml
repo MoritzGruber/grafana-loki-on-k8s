@@ -24,8 +24,6 @@ data:
         service_graphs:
           enable_client_server_prefix: true
           enable_virtual_node_label: true
-      span_metrics:
-        enable_target_info: true
       storage:
         path: /var/tempo/generator/wal
         remote_write:
@@ -75,10 +73,8 @@ data:
         frontend_address: 0.0.0.0:9095
     query_frontend: {}
     overrides:
-      defaults:
-        metrics_generator:
-          processors: [service-graphs, span-metrics] # local-blocks
-          generate_native_histograms: both
+      metrics_generator_processors: [service-graphs] # Remove span-metrics
+      metrics_generator_generate_native_histograms: both
       user_configurable_overrides:
         api:
           check_for_conflicting_runtime_overrides: true
