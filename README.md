@@ -32,6 +32,12 @@ This will deploy the following services in `monitoring` namespace:
 - Promtail - preconfigured to push data to Loki
 - Tempo
 
+## Storage PVC
+- 30GB for Prometheus should handle 15 days of metrics for a medium-sized cluster
+- 30GB for Loki is good for 15 days of logs (depending on your log volume)
+- 20GB for Tempo is generous for 24 hours of trace data
+- 3GB for Grafana is sufficient for dashboards and configurations
+
 ## Configuration
 
 Once deployed, access Grafana UI via:
