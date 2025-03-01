@@ -38,7 +38,7 @@ spec:
               storage: 30Gi        
       containers:
         - name: loki
-          image: docker.io/grafana/loki:3.3.0
+          image: docker.io/grafana/loki:3.4.2
           imagePullPolicy: IfNotPresent
           args:
             - "-config.file=/etc/loki/loki.yaml"
