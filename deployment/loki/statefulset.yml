@@ -85,3 +85,5 @@ spec:
         - name: storage
           persistentVolumeClaim:
             claimName: loki-storage
+
+
