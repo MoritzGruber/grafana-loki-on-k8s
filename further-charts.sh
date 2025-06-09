@@ -1,5 +1,9 @@
 
 kubectl create ns monitoring
+
+# if no default storage class is set, set some as default
+# kubectl patch storageclass csi-cinder-high-speed -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+
 # kube-state-metrics
 helm upgrade --install kube-state-metrics prometheus-community/kube-state-metrics -n monitoring
 
