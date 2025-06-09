@@ -8,3 +8,4 @@ cmd/promtail/promtail
 /loki
 /promtail
 repomix-output.txt
+repomix-output.xml

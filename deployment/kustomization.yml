@@ -12,6 +12,6 @@ resources:
 - namespace.yml
 - loki/
 - prometheus/
-- promtail/
+- alloy/
 - tempo/
 - grafana/
